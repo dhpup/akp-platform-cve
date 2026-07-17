@@ -74,12 +74,44 @@ Within a minute or two you should see `platform-aoa`, `argocd-*`, and
 `kargo-*` Applications in Argo CD, and four Projects in the Kargo UI.
 
 **4. Give Kargo git credentials** — promotions push commits to your fork.
-Kargo credentials are namespaced per project, so add them to all four
-(the script loops for you):
+Two ways to do it:
+
+*Option A — per-project (the default here; zero instance setup).* Kargo
+credentials are namespaced per project — that's Kargo's isolation model, and
+it works on a stock instance with nothing but the CLI. The script adds the
+same token to all four projects for you:
 
 ```sh
 ./add-credentials.sh   # prompts for GitHub username + token once
 ```
+
+*Option B — one shared (global) credential.* Kargo can treat designated
+namespaces (conventionally `kargo-shared-resources`) as a global credential
+source that all projects fall back to — one secret instead of a copy per
+project. This needs the global-credentials namespace enabled in your Kargo
+instance settings first; on the Akuity Platform you can then deliver the
+secret via agent secret-sync from a workload cluster. Sketch (check the
+[Akuity docs](https://docs.akuity.io) for current labels/settings):
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-creds
+  namespace: akuity              # on your workload cluster; the agent syncs it up
+  labels:
+    kargo.akuity.io/secret-sync: kargo-shared-resources
+    kargo.akuity.io/cred-type: git
+stringData:
+  repoURL: https://github.com/<your-org>/.*
+  repoURLIsRegex: "true"
+  username: <github-username>
+  password: <token-with-repo-write>
+```
+
+Option A gets you promoting fastest; switch to Option B when per-project
+copies of the same token start to feel like sprawl (many projects, token
+rotation).
 
 **5. Promote!** Open the Kargo UI, pick a project (start with
 `guestbook-rendered`), and promote the freshest Freight into `dev`, then on

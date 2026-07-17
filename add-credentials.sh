@@ -47,5 +47,5 @@ done
 
 echo ""
 echo "Done. Each project now has a 'github-creds' git credential."
-echo "Tip: for many projects, consider Kargo shared/global credentials instead"
-echo "of per-project copies — see the Akuity docs."
+echo "Tip: for many projects, one shared/global credential may be cleaner —"
+echo "see 'Option B' under step 4 in the README."

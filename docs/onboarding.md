@@ -59,7 +59,8 @@ Start by copying the closest example:
 - [ ] Do **not** set a `shard:` field on Stages unless you know your shard
       name — pinning to a nonexistent shard makes promotions hang silently.
 - [ ] New Kargo project ⇒ new git credentials (they're per-project). Add the
-      project to `add-credentials.sh` or create shared credentials.
+      project to `add-credentials.sh`, or use one shared/global credential —
+      see "Option B" under step 4 in the root README.
 
 ## What you should NOT need to do
 
