@@ -1,4 +1,4 @@
-# akp-platform — Akuity Platform Quickstart
+# akp-platform-cve — Akuity Platform Quickstart
 
 A batteries-included GitOps platform repo for the [Akuity Platform](https://akuity.io)
 (hosted Argo CD + Kargo). Fork it, run one script, apply **one** manifest, and you
@@ -10,9 +10,9 @@ This repo is one of three, and works standalone:
 
 | Repo | Role | Needed for the quickstart? |
 |---|---|---|
-| **akp-platform** (this repo) | All GitOps config: Argo CD apps, Kargo pipelines | ✅ yes — works alone |
-| [akp-monorepo](https://github.com/example-org/akp-monorepo) | App source code + CI that builds images | optional — [add it later](docs/add-monorepo.md) |
-| [akp-infra](https://github.com/example-org/akp-infra) | Terraform for Argo CD/Kargo instances, clusters, agents | optional — [its own journey](docs/add-infra.md) |
+| **akp-platform-cve** (this repo) | All GitOps config: Argo CD apps, Kargo pipelines | ✅ yes — works alone |
+| [akp-monorepo-cve](https://github.com/example-org/akp-monorepo-cve) | App source code + CI that builds images | optional — [add it later](docs/add-monorepo.md) |
+| [akp-infra-cve](https://github.com/example-org/akp-infra-cve) | Terraform for Argo CD/Kargo instances, clusters, agents | optional — [its own journey](docs/add-infra.md) |
 
 ## What you get
 
@@ -41,7 +41,7 @@ Bootstrap discovers apps by directory — onboarding never touches `bootstrap/`.
 
 - An Akuity Platform organization with an **Argo CD instance** and a **Kargo
   instance** (create them in the UI, or declaratively with
-  [akp-infra](https://github.com/example-org/akp-infra)).
+  [akp-infra-cve](https://github.com/example-org/akp-infra-cve)).
 - A workload cluster connected to Argo CD (any name — the personalize script
   asks for it).
 - The Kargo instance registered in Argo CD as a cluster destination
@@ -54,7 +54,7 @@ Bootstrap discovers apps by directory — onboarding never touches `bootstrap/`.
 
 ## Quickstart
 
-**1. Fork this repo** (keep the name `akp-platform` and keep it public —
+**1. Fork this repo** (keep the name `akp-platform-cve` and keep it public —
 Argo CD and Kargo read it anonymously), then clone your fork.
 
 **2. Personalize it** — rewrites the placeholder org/cluster names in-place:
@@ -147,7 +147,7 @@ automatically (that's the point).
 - **[Add the app monorepo](docs/add-monorepo.md)** — build your own images
   with CI and point Warehouses at them instead of the public guestbook.
 - **[Manage the platform with Terraform](docs/add-infra.md)** — the
-  [akp-infra](https://github.com/example-org/akp-infra) journey: instances,
+  [akp-infra-cve](https://github.com/example-org/akp-infra-cve) journey: instances,
   clusters, and agents as code.
 
 ## Repo layout

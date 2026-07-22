@@ -14,7 +14,7 @@ else
   SEDI=(-i '')
 fi
 
-echo -n "Enter GitHub username/org (owner of your akp-platform fork): "
+echo -n "Enter GitHub username/org (owner of your akp-platform-cve fork): "
 read -r username
 if [[ -z "$username" ]]; then
   echo "GitHub username/org is required." >&2
@@ -35,9 +35,9 @@ read -r ghcr_org
 
 # GitHub org in repo URLs and doc links (all three companion repos)
 find . -type f \( -name '*.yaml' -o -name '*.yml' -o -name '*.md' \) -not -path './.git/*' -exec sed -E "${SEDI[@]}" \
-  -e "s#github.com/[-_a-zA-Z0-9]+/akp-platform#github.com/${username}/akp-platform#g" \
-  -e "s#github.com/[-_a-zA-Z0-9]+/akp-monorepo#github.com/${username}/akp-monorepo#g" \
-  -e "s#github.com/[-_a-zA-Z0-9]+/akp-infra#github.com/${username}/akp-infra#g" \
+  -e "s#github.com/[-_a-zA-Z0-9]+/akp-platform-cve#github.com/${username}/akp-platform-cve#g" \
+  -e "s#github.com/[-_a-zA-Z0-9]+/akp-monorepo-cve#github.com/${username}/akp-monorepo-cve#g" \
+  -e "s#github.com/[-_a-zA-Z0-9]+/akp-infra-cve#github.com/${username}/akp-infra-cve#g" \
   {} +
 
 # Workload cluster: Argo CD destination names in the app ApplicationSets
@@ -58,4 +58,4 @@ echo ""
 echo "Done. Review the changes with 'git diff', then commit and push."
 echo "Notes:"
 echo "  - This script is one-shot for the cluster name — reset with 'git checkout -- .' before re-running."
-echo "  - If you also forked akp-monorepo or akp-infra, run their personalize/setup steps too."
+echo "  - If you also forked akp-monorepo-cve or akp-infra-cve, run their personalize/setup steps too."

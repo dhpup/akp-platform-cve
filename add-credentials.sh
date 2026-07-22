@@ -4,7 +4,7 @@
 # project, which is why this loops.
 #
 # Requires: kargo CLI logged in (kargo login <your-kargo-url>), and a GitHub
-# token with repo write access to your akp-platform fork.
+# token with repo write access to your akp-platform-cve fork.
 
 set -e
 

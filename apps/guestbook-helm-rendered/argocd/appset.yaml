@@ -13,7 +13,7 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.com/example-org/akp-platform.git
+      repoURL: https://github.com/example-org/akp-platform-cve.git
       revision: HEAD
       directories:
       - path: apps/guestbook-helm-rendered/env/*
@@ -26,7 +26,7 @@ spec:
     spec:
       project: guestbook-helm-rendered
       source:
-        repoURL: https://github.com/example-org/akp-platform.git
+        repoURL: https://github.com/example-org/akp-platform-cve.git
         # The hydrated branch written by the Kargo promotion task.
         targetRevision: env/guestbook-helm-rendered/{{path.basename}}
         path: ./
