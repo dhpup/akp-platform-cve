@@ -1,0 +1,32 @@
+# Fails a promotion when the current time is outside an allowed maintenance
+# window (UTC hours). Kargo has no native scheduled-window feature yet, so this
+# is the supported workaround: a custom step that gates promotion on a time
+# condition. Pair it with a manual approval Stage so a human only approves
+# in-window promotions.
+#
+# Config:
+#   region     - label for logs (e.g. us-west)
+#   startHour  - window start, 0-23 UTC (inclusive)
+#   endHour    - window end,   0-23 UTC (exclusive)
+apiVersion: ee.kargo.akuity.io/v1alpha1
+kind: CustomPromotionStep
+metadata:
+  name: maintenance-window
+spec:
+  command:
+    - sh
+    - -c
+    - |
+      REGION="${{ config.region }}"
+      START="${{ config.startHour }}"
+      END="${{ config.endHour }}"
+      NOW=$(date -u +%H)
+      echo "region=${REGION} now=${NOW}h UTC window=[${START},${END}) UTC"
+      # busybox `test` compares operands as decimal integers.
+      if [ "${NOW}" -ge "${START}" ] && [ "${NOW}" -lt "${END}" ]; then
+        echo "within maintenance window — proceeding"
+      else
+        echo "outside maintenance window for ${REGION} — blocking promotion" >&2
+        exit 1
+      fi
+  image: busybox:1.37.0
